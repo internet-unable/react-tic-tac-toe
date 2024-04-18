@@ -26,7 +26,7 @@ export default function App() {
     const [gameTurns, setGameTurns] = useState([]);
     const activePlayer = deriveActivePlayer(gameTurns);
 
-    let gameBoard = initGameBoard;
+    let gameBoard = [...initGameBoard.map(item => [...item])];
     for (const turn of gameTurns) {
         const { square, player } = turn;
         const { row, col } = square;
@@ -50,7 +50,7 @@ export default function App() {
     }
 
     const hasDraw = gameTurns.length === 9 && !winner;
-
+    
     function handleSquareClick(rowIndex, colIndex) {
         setGameTurns((prevTurns) => {
             const currentPlayer = deriveActivePlayer(prevTurns);
@@ -63,6 +63,10 @@ export default function App() {
         });
     }
 
+    function handleGameReset() {
+        setGameTurns([]);
+    }
+
     return (
         <main>
             <div id="game-container">
@@ -71,7 +75,7 @@ export default function App() {
                     <Player initName="Player 2" symbol="O" isActive={activePlayer === 'O'}/>
                 </ol>
 
-                {(winner || hasDraw) && <GameOver winner={winner} />}
+                {(winner || hasDraw) && <GameOver winner={winner} onBtnClick={handleGameReset} />}
                 <GameBoard onSquareClick={handleSquareClick} board={gameBoard} />
             </div>
 
