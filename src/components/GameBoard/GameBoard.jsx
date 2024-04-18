@@ -21,7 +21,13 @@ export default function GameBoard({ onSquareClick, turns }) {
                     <ol>
                         {row.map((playerSymbol, colIndex) => (
                             <li key={colIndex}>
-                                <button type="button" onClick={() => onSquareClick(rowIndex, colIndex)}>{playerSymbol}</button>
+                                <button
+                                    type="button"
+                                    onClick={() => onSquareClick(rowIndex, colIndex)}
+                                    disabled={playerSymbol !== null}
+                                >
+                                    {playerSymbol}
+                                </button>
                             </li>
                         ))}
                     </ol>
