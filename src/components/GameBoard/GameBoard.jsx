@@ -6,16 +6,18 @@ const initGameBoard = [
     [null, null, null]
 ];
 
-export default function GameBoard() {
+export default function GameBoard({ onSquareClick, activePlayerSymbol }) {
     const [gameBoard, setGameBoard] = useState(initGameBoard);
 
     function handleBtnClick(rowIndex, colIndex) {
         setGameBoard((prevGameBoard) => {
             const updatedBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
 
-            updatedBoard[rowIndex][colIndex] = 'X';
+            updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
             return updatedBoard;
         });
+
+        onSquareClick();
     }
 
     return (
