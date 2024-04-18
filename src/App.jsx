@@ -1,20 +1,25 @@
 import { useState } from "react";
 import Player from "./components/Player/Player.jsx";
 import GameBoard from "./components/GameBoard/GameBoard.jsx";
+import Log from "./components/Log/Log.jsx";
+
+function deriveActivePlayer(gameTurns) {
+    let currentPlayer = 'X';
+
+    if (gameTurns.length && gameTurns[0].player === 'X') {
+        currentPlayer = 'O';
+    }
+
+    return currentPlayer;
+}
 
 export default function App() {
-    const [activePlayer, setActivePlayer] = useState('X');
     const [gameTurns, setGameTurns] = useState([]);
+    const activePlayer = deriveActivePlayer(gameTurns);
 
     function handleSquareClick(rowIndex, colIndex) {
-        setActivePlayer((currentActivePlayer) => currentActivePlayer === 'X' ? 'O' : 'X');
         setGameTurns((prevTurns) => {
-            let currentPlayer = 'X';
-
-            if (prevTurns.length && prevTurns[0].player === 'X') {
-                currentPlayer = 'O';
-            }
-
+            const currentPlayer = deriveActivePlayer(prevTurns);
             const updatedTruns = [
                 { player: currentPlayer, square: { row: rowIndex, col: colIndex } },
                 ...prevTurns
@@ -34,7 +39,8 @@ export default function App() {
 
                 <GameBoard onSquareClick={handleSquareClick} turns={gameTurns} />
             </div>
-            Log
+
+            <Log turns={gameTurns} />
         </main>
     )
 }
