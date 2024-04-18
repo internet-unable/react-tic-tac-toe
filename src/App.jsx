@@ -73,7 +73,11 @@ export default function App() {
         setGameTurns((prevTurns) => {
             const currentPlayer = deriveActivePlayer(prevTurns);
             const updatedTruns = [
-                { player: currentPlayer, square: { row: rowIndex, col: colIndex } },
+                {
+                    player: currentPlayer,
+                    playerName: players[currentPlayer],
+                    square: { row: rowIndex, col: colIndex }
+                },
                 ...prevTurns
             ];
 

@@ -5,7 +5,7 @@ export default function Log({ turns }) {
                 <li
                     key={`${turn.square.row}${turn.square.col + 1}`}
                 >
-                    {turn.player} selected {turn.square.row},{turn.square.col}
+                    {turn.playerName} selected {turn.square.row},{turn.square.col}
                 </li>
                 ))}
         </ol>
